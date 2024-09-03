@@ -4,6 +4,10 @@ namespace api.Dtos
 {
 	public class CreateTaskDto
 	{
+
+		[Required]
+		[MaxLength(255, ErrorMessage = "Too long")]
+		public string UserId {get; set;} = null!;
 		[Required]
 		[MaxLength(255, ErrorMessage = "Too long")]
 		public string Title {get; set;} = null!;

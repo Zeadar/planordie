@@ -47,16 +47,61 @@ namespace api.Controller
 		[Authorize]
 		public async Task<IActionResult> Create(CreateTaskDto dto)
 		{
-			var username = User.GetUsername();
-			if (username == null)
-			{
-				return BadRequest();
-			}
-			var user = await userManager.FindByNameAsync(username);
+			//   ↓ NULL
+			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-			await context.Tasks.AddAsync(new Models.Task()
+			// api.Models.Task task = new api.Models.Task()
+			// {
+			// 	UserId = userId, //← Null
+			// 	Title = dto.Title,
+			// 	Description = dto.Description,
+			// 	AssignDate = dto.AssignDate,
+			// 	RecurringMonth = dto.RecurringMonth,
+			// 	RecurringN = dto.RecurringN,
+			// 	RecurringStop = dto.RecurringStop,
+			// };
+			// var username = User.GetUsername();
+			// if (username == null)
+			// {
+			// 	return BadRequest();
+			// }
+			if (!User.Identity.IsAuthenticated) {
+     				return Redirect("/Identity/Account/AccessDenied");
+				}
+
+			// if (dto.UserId != userId)
+			// {
+ 		// 		return Redirect("/Identity/Account/AccessDenied");
+			// }
+
+			var user = await userManager.FindByIdAsync(userId);
+			
+			api.Models.Task task = new api.Models.Task()
+			{
+			    UserId = user.Id,
+			    Title = dto.Title,
+			    Description = dto.Description,
+			    AssignDate = dto.AssignDate,
+			    RecurringMonth = dto.RecurringMonth,
+			    RecurringN = dto.RecurringN,
+			    RecurringStop = dto.RecurringStop,
+			};
+
+			// task.User = user;
+ 
+			// Console.WriteLine($"Creating task with UserId: {task.UserId}");
+ 
+			// await context.Tasks.AddAsync(task);
+			// await context.SaveChangesAsync();
+ 
+			// return Ok();
+
+			await context.Tasks.AddAsync(task);
+
+			/* await context.Tasks.AddAsync(new Models.Task()
 				{
-					UserId = user.Id,
+					// UserId = user.Id,
+					UserId = userId,
 					Title = dto.Title,
 					Description = dto.Description,
 					AssignDate = dto.AssignDate,
@@ -64,8 +109,9 @@ namespace api.Controller
 					RecurringN = dto.RecurringN,
 					RecurringStop = dto.RecurringStop,
 				}
-			);
+			); */
 
+			task.User = user;
 			await context.SaveChangesAsync();
 
 			return Ok();
