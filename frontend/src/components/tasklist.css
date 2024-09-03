@@ -1,0 +1,13 @@
+.tasklist {
+  min-width: 60rem;
+  min-height: 40rem;
+  border-radius: 2rem;
+  padding: 2rem;
+  background: rgba(0, 10, 5, 0.75);
+  color: greenyellow;
+}
+
+.title {
+  font-size: 2rem;
+  color: whitesmoke;
+}

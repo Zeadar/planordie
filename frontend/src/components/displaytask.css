@@ -1,0 +1,17 @@
+.taskflexy {
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.odd {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.even {
+  background: rgba(255, 255, 255, 0.15);
+}
