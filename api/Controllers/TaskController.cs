@@ -47,74 +47,39 @@ namespace api.Controller
 		[Authorize]
 		public async Task<IActionResult> Create(CreateTaskDto dto)
 		{
-			//   ↓ NULL
-			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+		    if (!User.Identity.IsAuthenticated)
+		    {
+		        return Redirect("/Identity/Account/AccessDenied");
+		    }
 
-			// api.Models.Task task = new api.Models.Task()
-			// {
-			// 	UserId = userId, //← Null
-			// 	Title = dto.Title,
-			// 	Description = dto.Description,
-			// 	AssignDate = dto.AssignDate,
-			// 	RecurringMonth = dto.RecurringMonth,
-			// 	RecurringN = dto.RecurringN,
-			// 	RecurringStop = dto.RecurringStop,
-			// };
-			// var username = User.GetUsername();
-			// if (username == null)
-			// {
-			// 	return BadRequest();
-			// }
-			if (!User.Identity.IsAuthenticated) {
-     				return Redirect("/Identity/Account/AccessDenied");
-				}
+		    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+		    if (userId == null)
+		    {
+		        return Unauthorized();
+		    }
 
-			// if (dto.UserId != userId)
-			// {
- 		// 		return Redirect("/Identity/Account/AccessDenied");
-			// }
+		    var user = await userManager.FindByIdAsync(userId);
+		    if (user == null)
+		    {
+		        return BadRequest("User not found.");
+		    }
 
-			var user = await userManager.FindByIdAsync(userId);
-			
-			api.Models.Task task = new api.Models.Task()
-			{
-			    UserId = user.Id,
-			    Title = dto.Title,
-			    Description = dto.Description,
-			    AssignDate = dto.AssignDate,
-			    RecurringMonth = dto.RecurringMonth,
-			    RecurringN = dto.RecurringN,
-			    RecurringStop = dto.RecurringStop,
-			};
+		    Models.Task task = new Models.Task()
+		    {
+		        UserId = userId,
+		        Title = dto.Title,
+		        Description = dto.Description,
+		        AssignDate = dto.AssignDate,
+		        RecurringMonth = dto.RecurringMonth,
+		        RecurringN = dto.RecurringN,
+		        RecurringStop = dto.RecurringStop,
+		        User = user
+		    };
 
-			// task.User = user;
- 
-			// Console.WriteLine($"Creating task with UserId: {task.UserId}");
- 
-			// await context.Tasks.AddAsync(task);
-			// await context.SaveChangesAsync();
- 
-			// return Ok();
+		    await context.Tasks.AddAsync(task);
+		    await context.SaveChangesAsync();
 
-			await context.Tasks.AddAsync(task);
-
-			/* await context.Tasks.AddAsync(new Models.Task()
-				{
-					// UserId = user.Id,
-					UserId = userId,
-					Title = dto.Title,
-					Description = dto.Description,
-					AssignDate = dto.AssignDate,
-					RecurringMonth = dto.RecurringMonth,
-					RecurringN = dto.RecurringN,
-					RecurringStop = dto.RecurringStop,
-				}
-			); */
-
-			task.User = user;
-			await context.SaveChangesAsync();
-
-			return Ok();
+		    return Ok(task);
 		}
 
 		[HttpPut("{id:int}")]
