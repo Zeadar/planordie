@@ -27,9 +27,20 @@ namespace api.Controller
 		[Authorize]
 		public async Task<IActionResult> GetAll()
 		{
+		    if (!User.Identity.IsAuthenticated)
+		    {
+		        return Redirect("/Identity/Account/AccessDenied");
+		    }
+
+		    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+		    if (userId == null)
+		    {
+		        return Unauthorized();
+		    }
+
 			var tasks = await context.Tasks.ToListAsync();
 
-			var dto = tasks.Select(task => new GetTaskDto()
+			var dto = tasks.Where(task => task.UserId == userId).Select(task => new GetTaskDto()
 			{
 				Id = task.Id,
 				Title = task.Title,

@@ -14,3 +14,7 @@
 .top {
   height: 2rem;
 }
+
+.genericbutton {
+  border-color: yellowgreen;
+}
