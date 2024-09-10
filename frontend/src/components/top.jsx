@@ -2,7 +2,7 @@ import React from "react"
 import "./top.css"
 import "./common.css"
 
-const Top = ({ username, logoutHandler, registerHandler }) => {
+const Top = ({ username, logoutHandler, registerHandler, removeHandler }) => {
     return (
         <div className="topper">
             <span> {username}</span>
@@ -12,6 +12,9 @@ const Top = ({ username, logoutHandler, registerHandler }) => {
                 </button>
                 <button className="standardbutton" onClick={registerHandler}>
                     Register
+                </button>
+                <button className="standardbutton" onClick={removeHandler}>
+                    Remove
                 </button>
             </div>
         </div>

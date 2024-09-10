@@ -21,8 +21,6 @@ const LoginForm = ({ handleNewUsername }) => {
                 body: JSON.stringify(payload),
             })
 
-            console.log("Hello?")
-
             if (response.ok) {
                 const data = await response.json()
                 console.log("Success:", data)

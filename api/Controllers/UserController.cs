@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using api.Data;
 using api.Dtos;
 using api.Interfaces;
@@ -25,6 +26,38 @@ namespace api.Controller
 			this.signInManager = signInManager;
 		}
 
+		[HttpDelete("delete")]
+		public async Task<IActionResult> Delete()
+		{
+
+			// Console.WriteLine("Logged in NAME");
+			// Console.WriteLine(User.Identity.Name);
+			// var user = await userManager.Users.FirstOrDefaultAsync(user => user.UserName );
+
+		    if (!User.Identity.IsAuthenticated)
+		    {
+		        return Redirect("/Identity/Account/AccessDenied");
+		    }
+
+		    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+		    if (userId == null)
+		    {
+		        return Unauthorized();
+		    }
+
+			var user = await userManager.Users.FirstOrDefaultAsync(user => user.Id == userId);
+
+			if (user == null)
+			{
+				return NotFound();
+			}
+
+			await userManager.DeleteAsync(user);
+
+			return NoContent();
+			
+		}
+
 		[HttpPost("login")]
 		public async Task<IActionResult> Login([FromBody] CreateUserDto dto)
 		{
@@ -40,7 +73,7 @@ namespace api.Controller
 
 			if (!result.Succeeded)
 			{
-				return Unauthorized("Invalid Username or Password");
+				return Unauthorized("Invalid Password");
 			}
 
 			return Ok(

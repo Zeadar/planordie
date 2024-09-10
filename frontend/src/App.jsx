@@ -4,6 +4,7 @@ import TaskList from "./components/tasklist.jsx"
 import LoginForm from "./components/loginform.jsx"
 import Top from "./components/top.jsx"
 import RegisterForm from "./components/register.jsx"
+import Remove from "./components/remove.jsx"
 import { useState, useEffect } from "react"
 import { getTasks } from "./getTasks.js"
 
@@ -15,14 +16,27 @@ function App() {
     const registerForm = RegisterForm({ successHandler: registerSuccessHandler })
     const loginForm = LoginForm({ handleNewUsername: handleNewUsername })
     const taskList = TaskList({ tasks: tasks })
+    const removeForm = Remove({ removeHandler: removeSuccessHandler })
 
     function registerSuccessHandler() {
         setNowDisplay("login")
     }
 
+    function removeSuccessHandler() {
+        setNowDisplay("login")
+        window.localStorage.setItem("username", null)
+        setUsername("")
+    }
+
+    function removeHandler() {
+        setNowDisplay("remove")
+    }
+
     function logoutHandler() {
         window.localStorage.setItem("token", "")
         setNowDisplay("login")
+        window.localStorage.setItem("username", null)
+        setUsername("")
     }
 
     function registerHandler() {
@@ -32,8 +46,8 @@ function App() {
 
     function handleNewUsername(un) {
         setNowDisplay("tasks")
+        window.localStorage.setItem("username", un)
         setUsername("Logged in: " + un)
-        window.localStorage.setItem("username", username)
         getTasks(setTasks)
     }
 
@@ -53,6 +67,8 @@ function App() {
                 return taskList
             case "register":
                 return registerForm
+            case "remove":
+                return removeForm
             default:
                 return <div>Herp derp</div>
         }
@@ -61,7 +77,12 @@ function App() {
     return (
         <div className="everything">
             <div className="App">
-                <Top username={username} logoutHandler={logoutHandler} registerHandler={registerHandler}></Top>
+                <Top
+                    username={username}
+                    logoutHandler={logoutHandler}
+                    registerHandler={registerHandler}
+                    removeHandler={removeHandler}
+                ></Top>
                 <div className="flexy">{displayer()}</div>
             </div>
         </div>

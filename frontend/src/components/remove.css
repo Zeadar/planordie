@@ -1,0 +1,10 @@
+.flexyvertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.littlespace {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
