@@ -90,7 +90,7 @@ namespace api.Controller
 		    await context.Tasks.AddAsync(task);
 		    await context.SaveChangesAsync();
 
-		    return Ok(task);
+		    return Ok(task.Id);
 		}
 
 		[HttpPut("{id:int}")]
