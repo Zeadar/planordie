@@ -1,3 +1,5 @@
+import { Task } from "./components/taskstructure.js"
+
 function getTasks(setTasks) {
     const token = window.localStorage.getItem("token")
 
@@ -13,12 +15,12 @@ function getTasks(setTasks) {
     })
         .then((r) => r.json())
         .then((json) => {
-            const tasks = json["$values"]
-            console.log(tasks)
+            const tasks = json["$values"].map((v) => new Task(v))
+            console.log("tasks", tasks)
             setTasks(tasks)
         })
         .catch((err) => {
-            console.log(err)
+            console.error(err)
         })
 }
 

@@ -3,12 +3,11 @@ import { useState } from "react"
 import "./common.css"
 import "./remove.css"
 
-const Remove = ({ removeHandler }) => {
+const Remove = ({ removeHandler, username }) => {
     const [disable, setDisable] = useState(true)
     const [error, setError] = useState("")
 
     function checkUser({ target }) {
-        const username = window.localStorage.getItem("username")
         if (target.value == username) {
             setDisable(false)
         } else {

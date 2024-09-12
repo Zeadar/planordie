@@ -1,13 +1,42 @@
 .tasklist {
-  min-width: 60rem;
-  min-height: 40rem;
+  width: 100%;
   border-radius: 2rem;
-  padding: 2rem;
-  background: rgba(0, 10, 5, 0.75);
   color: greenyellow;
 }
 
 .title {
   font-size: 2rem;
   color: whitesmoke;
+}
+
+.addtask {
+  width: 3rem;
+  height: 3rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 1rem;
+
+  background-color: transparent;
+  border: solid;
+  border-radius: 50%;
+  border-color: yellowgreen;
+  box-shadow: none;
+  outline: none;
+}
+
+.horizontalline {
+  position: absolute;
+  width: 2rem;
+  height: 0.2rem;
+  background: whitesmoke;
+}
+
+.verticalline {
+  position: absolute;
+  width: 0.2rem;
+  height: 2rem;
+  background: whitesmoke;
 }

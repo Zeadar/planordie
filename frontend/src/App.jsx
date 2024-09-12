@@ -5,6 +5,7 @@ import LoginForm from "./components/loginform.jsx"
 import Top from "./components/top.jsx"
 import RegisterForm from "./components/register.jsx"
 import Remove from "./components/remove.jsx"
+import AddTask from "./components/addtask.jsx"
 import { useState, useEffect } from "react"
 import { getTasks } from "./getTasks.js"
 
@@ -15,8 +16,9 @@ function App() {
 
     const registerForm = RegisterForm({ successHandler: registerSuccessHandler })
     const loginForm = LoginForm({ handleNewUsername: handleNewUsername })
-    const taskList = TaskList({ tasks: tasks })
-    const removeForm = Remove({ removeHandler: removeSuccessHandler })
+    const taskList = TaskList({ tasks: tasks, handleNewTask: handleNewTask })
+    const removeForm = Remove({ removeHandler: removeSuccessHandler, username: username })
+    const addTask = AddTask({ addTaskHandler: addTaskSuccessHandler })
 
     function registerSuccessHandler() {
         setNowDisplay("login")
@@ -24,8 +26,18 @@ function App() {
 
     function removeSuccessHandler() {
         setNowDisplay("login")
-        window.localStorage.setItem("username", null)
         setUsername("")
+    }
+
+    function addTaskSuccessHandler(newTask) {
+        if (newTask) {
+            console.log("AddNew")
+            getTasks(setTasks)
+        } else {
+            console.log("back")
+        }
+
+        setNowDisplay("tasks")
     }
 
     function removeHandler() {
@@ -35,7 +47,6 @@ function App() {
     function logoutHandler() {
         window.localStorage.setItem("token", "")
         setNowDisplay("login")
-        window.localStorage.setItem("username", null)
         setUsername("")
     }
 
@@ -47,8 +58,12 @@ function App() {
     function handleNewUsername(un) {
         setNowDisplay("tasks")
         window.localStorage.setItem("username", un)
-        setUsername("Logged in: " + un)
+        setUsername(un)
         getTasks(setTasks)
+    }
+
+    function handleNewTask() {
+        setNowDisplay("addtask")
     }
 
     useEffect(() => {
@@ -69,6 +84,8 @@ function App() {
                 return registerForm
             case "remove":
                 return removeForm
+            case "addtask":
+                return addTask
             default:
                 return <div>Herp derp</div>
         }
@@ -83,7 +100,11 @@ function App() {
                     registerHandler={registerHandler}
                     removeHandler={removeHandler}
                 ></Top>
-                <div className="flexy">{displayer()}</div>
+                <div className="container">
+                    <div className="frame">
+                        <div className="flexy">{displayer()}</div>
+                    </div>
+                </div>
             </div>
         </div>
     )

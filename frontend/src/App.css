@@ -11,10 +11,22 @@
   );
 }
 
-.top {
-  height: 2rem;
-}
-
 .genericbutton {
   border-color: yellowgreen;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.frame {
+  min-width: 40rem;
+  max-width: 60rem;
+  min-height: 40rem;
+  border-radius: 2rem;
+  padding: 2rem;
+  background: rgba(0, 10, 5, 0.75);
+  color: greenyellow;
 }

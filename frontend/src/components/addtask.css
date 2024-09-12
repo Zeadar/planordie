@@ -1,0 +1,21 @@
+.title {
+  font-size: 2rem;
+}
+
+.enterlist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 30rem;
+}
+
+.entrytext {
+  margin-top: 1rem;
+}
+
+.addtaskbutton {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}

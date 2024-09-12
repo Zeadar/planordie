@@ -1,5 +1,14 @@
 .topper {
-  height: 2rem;
+  padding-bottom: 1rem;
+  height: 3rem;
   display: flex;
   justify-content: space-between;
+  font-size: 2rem;
+  min-width: 500px;
+}
+
+.topbutton {
+  font-size: 1.4rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }

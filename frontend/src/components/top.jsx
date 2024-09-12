@@ -5,15 +5,15 @@ import "./common.css"
 const Top = ({ username, logoutHandler, registerHandler, removeHandler }) => {
     return (
         <div className="topper">
-            <span> {username}</span>
+            <span>{username}</span>
             <div>
-                <button className="standardbutton" onClick={logoutHandler}>
+                <button className="standardbutton topbutton" onClick={logoutHandler}>
                     Logout
                 </button>
-                <button className="standardbutton" onClick={registerHandler}>
+                <button className="standardbutton topbutton" onClick={registerHandler}>
                     Register
                 </button>
-                <button className="standardbutton" onClick={removeHandler}>
+                <button className="standardbutton topbutton" onClick={removeHandler}>
                     Remove
                 </button>
             </div>
