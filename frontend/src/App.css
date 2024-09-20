@@ -24,7 +24,7 @@
 .frame {
   min-width: 40rem;
   max-width: 60rem;
-  min-height: 40rem;
+  min-height: 20rem;
   border-radius: 2rem;
   padding: 2rem;
   background: rgba(0, 10, 5, 0.75);

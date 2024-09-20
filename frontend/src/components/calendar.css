@@ -1,0 +1,46 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.month {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-rows: 1fr;
+  text-align: center;
+  width: 100%;
+}
+
+.calendar {
+  width: 40rem;
+  /* background: whitesmoke; */
+}
+
+.weekday {
+  text-align: center;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  border: 1px solid;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.today {
+  color: lightgreen;
+}
+
+.unavailable {
+  background: darkgreen;
+}
+
+.cell {
+  border: 1px solid;
+}

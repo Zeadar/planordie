@@ -6,6 +6,7 @@ import Top from "./components/top.jsx"
 import RegisterForm from "./components/register.jsx"
 import Remove from "./components/remove.jsx"
 import AddTask from "./components/addtask.jsx"
+import Calendar from "./components/calendar.jsx"
 import { useState, useEffect } from "react"
 import { getTasks } from "./getTasks.js"
 
@@ -16,17 +17,29 @@ function App() {
 
     const registerForm = RegisterForm({ successHandler: registerSuccessHandler })
     const loginForm = LoginForm({ handleNewUsername: handleNewUsername })
-    const taskList = TaskList({ tasks: tasks, handleNewTask: handleNewTask })
-    const removeForm = Remove({ removeHandler: removeSuccessHandler, username: username })
+    const taskList = TaskList({
+        tasks: tasks,
+        handleNewTask: handleNewTask,
+        handleDeleteTask: removeTaskSuccessHandler,
+    })
+    const removeForm = Remove({ removeHandler: removeUserSuccessHandler, username: username })
     const addTask = AddTask({ addTaskHandler: addTaskSuccessHandler })
+
+    function removeTaskSuccessHandler() {
+        getTasks(setTasks)
+    }
 
     function registerSuccessHandler() {
         setNowDisplay("login")
     }
 
-    function removeSuccessHandler() {
-        setNowDisplay("login")
-        setUsername("")
+    function removeUserSuccessHandler(removed) {
+        if (removed) {
+            setNowDisplay("login")
+            setUsername("")
+        } else {
+            setNowDisplay("tasks")
+        }
     }
 
     function addTaskSuccessHandler(newTask) {
@@ -103,6 +116,12 @@ function App() {
                 <div className="container">
                     <div className="frame">
                         <div className="flexy">{displayer()}</div>
+                    </div>
+                </div>
+                <div className="topper"></div>
+                <div className="container">
+                    <div className="frame">
+                        <Calendar tasks={tasks} />
                     </div>
                 </div>
             </div>

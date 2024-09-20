@@ -2,15 +2,16 @@ import React, { useState } from "react"
 import "./addtask.css"
 import "./common.css"
 
-let assignDate = ""
-let description = ""
-let recurringMonth = false
-let recurringN = 0
-let recurringStop = ""
-let title = ""
-
 const AddTask = ({ addTaskHandler }) => {
     const [disabled, setDisabled] = useState(false)
+
+    let assignDate = ""
+    let description = ""
+    let recurringMonth = false
+    let recurringN = 0
+    let recurringStop = ""
+    let title = ""
+
     return (
         <div>
             <span className="title">Add Task</span>
