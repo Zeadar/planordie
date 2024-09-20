@@ -26,7 +26,7 @@ const Calendar = ({ tasks }) => {
         taskMap.set(sDue, taskMap.get(sDue) ? taskMap.get(sDue).concat([t.title]) : [t.title])
     })
 
-    function days() {
+    function Days() {
         return Array(42)
             .fill(null)
             .map((_, i) => i + 1)
@@ -66,7 +66,7 @@ const Calendar = ({ tasks }) => {
         <div className="calendar">
             <div className="month">
                 <div>&#10094;</div>
-                <div>
+                <div style={{ color: "whitesmoke" }}>
                     {today.getFullYear()}-{today.getMonth() + 1}
                 </div>
                 <div>&#10095;</div>
@@ -82,7 +82,7 @@ const Calendar = ({ tasks }) => {
                 <div className="weekday">Sunday</div>
             </div>
 
-            <div className="days">{days()}</div>
+            <div className="days">{Days()}</div>
         </div>
     )
 }

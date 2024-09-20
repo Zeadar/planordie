@@ -18,6 +18,8 @@ const Remove = ({ removeHandler, username }) => {
     return (
         <div className="flexyvertical">
             <div className="littlespace"></div>
+            <span style={{ color: "red" }}>This will remove your user!</span>
+            <div className="littlespace"></div>
             <span>Enter current username</span>
             <div className="littlespace"></div>
             <input type="text" onChange={checkUser} />
