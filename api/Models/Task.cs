@@ -10,11 +10,11 @@ namespace api.Models
 		[ForeignKey("UserId")]
 		public User User {get; set;} = null!;
 		public string Title {get; set;} = null!;
-		public string Description {get; set;} = null!;
+		public string? Description {get; set;}
 		public string AssignDate {get; set;} = null!;
 		public bool RecurringMonth {get; set;} = false;
 		public int RecurringN {get; set;} = 0;
-		public string RecurringStop {get; set;} = null!;
+		public string? RecurringStop {get; set;}
 
 		public List<Subtask> Subtasks {get; set;} = new List<Subtask>();
 		public List<SkipTask> SkipTasks {get; set;} = new List<SkipTask>();

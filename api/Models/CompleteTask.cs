@@ -7,6 +7,6 @@ namespace api.Models
 		public int TaskId {get; set;}
 		[ForeignKey("TaskId")]
 		public Task Task {get; set;} = null!;
-		public DateOnly Completed {get; set;}
+		public string Completed {get; set;} = null!;
 	}
 }
