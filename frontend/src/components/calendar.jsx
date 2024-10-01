@@ -8,11 +8,13 @@ function Title(titles) {
             {t}
         </span>
     ))
+
     return spans
 }
 
 const Calendar = ({ tasks }) => {
     // const today = new Date(2024, 8, 1)
+    console.log("tasks", tasks)
     const today = new Date()
     const daysThisMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()
     let firstWeekday = new Date(today.getFullYear(), today.getMonth(), 1).getDay()
@@ -21,13 +23,14 @@ const Calendar = ({ tasks }) => {
     }
     const taskMap = new Map()
     tasks.forEach((t) => {
-        const due = t.due
+        const due = t.due.date
         const sDue = `${due.getFullYear()}${due.getMonth()}${due.getDate()}`
         taskMap.set(sDue, taskMap.get(sDue) ? taskMap.get(sDue).concat([t.title]) : [t.title])
     })
+    const daysAmount = firstWeekday + daysThisMonth > 35 ? 42 : 35
 
     function Days() {
-        return Array(42)
+        return Array(daysAmount)
             .fill(null)
             .map((_, i) => i + 1)
             .map((slot) => {
@@ -66,9 +69,7 @@ const Calendar = ({ tasks }) => {
         <div className="calendar">
             <div className="month">
                 <div>&#10094;</div>
-                <div style={{ color: "whitesmoke" }}>
-                    {today.getFullYear()}-{today.getMonth() + 1}
-                </div>
+                <div style={{ color: "whitesmoke" }}>{today.toISOString().slice(0, 7)}</div>
                 <div>&#10095;</div>
             </div>
 
@@ -82,7 +83,7 @@ const Calendar = ({ tasks }) => {
                 <div className="weekday">Sunday</div>
             </div>
 
-            <div className="days">{Days()}</div>
+            <div className={"days days" + daysAmount}>{Days()}</div>
         </div>
     )
 }

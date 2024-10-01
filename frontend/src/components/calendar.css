@@ -25,8 +25,15 @@ ul {
 .days {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
   border: 1px solid;
+}
+
+.days35 {
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.days42 {
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 .weekdays {
